@@ -1,0 +1,35 @@
+<div class ="contents">
+<{if $noperm_message != ''}>
+	<{$noperm_message}>
+<{else}>
+	<{$message}>
+	<form action="<{$base_url}>" method="post">
+		<div class ="form">
+			<{$smarty.const._MD_XMOBILE_NOTIFICATIONMETHODIS}><br />
+			<select name="notify_method">
+				<{foreach key=method_key item=notify_method from=$notify_methods}>
+					<option value="<{$method_key}>"<{$notify_method.selected}>><{$notify_method.name}></option>
+				<{/foreach}>
+			</select><br />
+			<{$smarty.const._NOT_NOTIFYMODE}><br />
+			<select name="notify_mode">
+				<{foreach key=mode_key item=notify_mode from=$notify_modes}>
+					<option value="<{$mode_key}>"<{$notify_mode.selected}>><{$notify_mode.name}></option>
+				<{/foreach}>
+			</select><hr />
+			<{$ticket_html}>
+			<input type="hidden" name="<{$session_name}>" value="<{$session_id}>" />
+			<input type="hidden" name="HTTP_REFERER" value="<{$referer_url}>" />
+			<{foreach name=mods key=mid item=mod from=$mods}>
+				<{if $mod.checked}>
+					<input type="checkbox" name="not_item[<{$mid}>]" value="1" checked />
+				<{else}>
+					<input type="checkbox" name="not_item[<{$mid}>]" value="0" />
+				<{/if}>
+				<{$mod.name}><br />
+			<{/foreach}>
+			<input type="submit" name="update" value="<{$smarty.const._MD_XMOBILE_UPDATE}>" />
+		</div>
+	</form>
+<{/if}>
+</div>

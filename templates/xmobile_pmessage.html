@@ -1,0 +1,85 @@
+<div class ="contents">
+<{$message}>
+<{if $show_list}>
+	<{if $total_messages == 0}>
+		<{$smarty.const._MD_XMOBILE_PM_YOUDONTHAVE}><br />
+	<{else}>
+		<{foreach name=pms item=pm from=$pms}>
+			<{if !$pm.read_msg}>
+				(<{$smarty.const._MD_XMOBILE_PM_NOTREAD}>)<br />
+			<{/if}>
+			<{$smarty.const._MD_XMOBILE_PM_SUBJECT}>: <{$pm.subject}><br />
+			<{$smarty.const._MD_XMOBILE_PM_FROM}>: <{$pm.poster_name}><br />
+			<{$smarty.const._MD_XMOBILE_PM_DATE}>: <{$pm.msg_time}><hr />
+		<{/foreach}>
+	<{/if}>
+	<{if $pm_page_navi != ''}>
+		<{$pm_page_navi}><hr />
+	<{/if}>
+	<form name="prvmsg" action="<{$base_url}>" method="post">
+		<div class ="form">
+			<input type="submit" name="submit" value="<{$smarty.const._MD_XMOBILE_CREATE_MESSAGE}>" />
+		</div>
+	</form>
+<{elseif $show_detail}>
+	<{if $has_message}>
+		<{$smarty.const._MD_XMOBILE_PM_SUBJECT}>: <{$subject}><br />
+		<{$smarty.const._MD_XMOBILE_PM_FROM}>: <{$poster_name}><br />
+		<{$smarty.const._MD_XMOBILE_PM_DATE}>: <{$msg_time}><br />
+		<{$smarty.const._MD_XMOBILE_CONTENTS}><br /><{$msg_text}>
+		<hr />
+		<form action="<{$base_url}>" method="post">
+			<div class ="form">
+				<input type="hidden" name="msg_id" value="<{$msg_id}>" />
+				<{if $reply}>
+					<input type="submit" name="reply" value="<{$smarty.const._REPLY}>" />&nbsp;
+				<{/if}>
+				<{$ticket_html}>
+				<input type="hidden" name="<{$session_name}>" value="<{$session_id}>" />
+				<input type="hidden" name="HTTP_REFERER" value="<{$referer_url}>" />
+				<input type="submit" name="delete" value="<{$smarty.const._DELETE}>" />&nbsp;
+				<input type="submit" name="forward" value="<{$smarty.const._MD_XMOBILE_PM_FORWARD}>" />&nbsp;
+			</div>
+		</form>
+		<!-- inukshukGTD core hack start -->
+		<{if $inukshukGTD==1}>
+			<{include file="file:`$xoops_rootpath`/modules/xmobile/templates/include_pmessage.html"}>
+		<{/if}>
+		<!-- inukshukGTD core hack end -->
+		<hr /><{$pm_page_navi}>
+	<{else}>
+		<{$smarty.const._MD_XMOBILE_PM_YOUDONTHAVE}>
+	<{/if}>
+<{elseif $show_edit}>
+	<form action="<{$base_url}>" method="post">
+		<div class ="form">
+			<{$ticket_html}>
+			<input type="hidden" name="<{$session_name}>" value="<{$session_id}>" />
+			<input type="hidden" name="HTTP_REFERER" value="<{$referer_url}>" />
+			<input type="hidden" name="op" value="submit" />
+			<{$smarty.const._MD_XMOBILE_PM_TO}><br />
+			<{if $reply}>
+				<input type="hidden" name="to_userid" value="<{$pm_uid}>"><{$pm_uname}><br />
+			<{elseif $send2}>
+				<input type="hidden" name="to_userid" value="<{$pm_uid}>"><{$pm_uname}><br />
+			<{else}>
+				<{if $send_type == 0}>
+					<select name="to_userid">
+						<{foreach name=pm_uids item=pm_uid from=$pm_uids}>
+							<option value="<{$pm_uid.uid}>"><{$pm_uid.uname}></option>
+						<{/foreach}>
+					</select><br />
+				<{else}>
+					<input type="text" name="to_userid" value="" size="12" maxlength="25" /><br />
+				<{/if}>
+			<{/if}>
+			<{$smarty.const._MD_XMOBILE_PM_SUBJECT}><br />
+			<input type="text" name="subject" value="<{$subject}>" size="24" maxlength="100" /><br />
+			<{$smarty.const._MD_XMOBILE_MESSAGE}><br />
+			<textarea name="msg_text" cols="<{$tarea_cols}>" rows="<{$tarea_rows}>"><{$msg_text}></textarea><br />
+			<input type="submit" name="submit" value="<{$smarty.const._SUBMIT}>" />&nbsp;
+			<input type="submit" name="cancel" value="<{$smarty.const._CANCEL}>" />
+		</div>
+	</form>
+<{/if}>
+</div>

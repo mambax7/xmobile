@@ -1,0 +1,146 @@
+<div class="contents">
+<{if $plugin_contents != ''}>
+	<{$plugin_contents}>
+<{/if}>
+<{if $show_edit}>
+	<form action="<{$base_url}>" method="post">
+		<div class ="form">
+			<{$ticket_html}>
+			<input type="hidden" name="<{$session_name}>" value="<{$session_id}>" />
+			<input type="hidden" name="HTTP_REFERER" value="<{$referer_url}>" />
+			<input type="hidden" name="op" value="submit" />
+			<input type="hidden" name="msg_id" value="<{$msg_id}>" />
+			<{$smarty.const._MD_XMOBILE_PM_SUBJECT}><br />
+			<input type="text" name="subject" value="<{$subject}>" size="24" maxlength="100" /><br />
+			<{$smarty.const._MD_XMOBILE_MESSAGE}><br />
+			<textarea name="msg_text" cols="<{$tarea_cols}>" rows="<{$tarea_rows}>"><{$msg_text}></textarea><br />
+
+			<{$smarty.const._PM_PRIORITY}>
+			<select name='pmPriority'>
+			<option value="5" <{if $imageNo==5}>selected="selected"<{/if}> ><{$smarty.const._PM_RED}>
+			<option value="4" <{if $imageNo==4}>selected="selected"<{/if}> ><{$smarty.const._PM_ORANGE}>
+			<option value="3" <{if $imageNo==3}>selected="selected"<{/if}> ><{$smarty.const._PM_YELLOW}>
+			<option value="2" <{if $imageNo==2}>selected="selected"<{/if}> ><{$smarty.const._PM_GREEN}>
+			<option value="1" <{if $imageNo==1}>selected="selected"<{/if}> ><{$smarty.const._PM_BLUE}>
+			</select>
+			<br />
+			<{$smarty.const._IG_PROGRESS}>
+			<select name='igProgress'>
+			<option value="0" <{if $gtd_done==0}>selected="selected"<{/if}> ><{$smarty.const._IG_NOTYET}>
+			<option value="1" <{if $gtd_done==1}>selected="selected"<{/if}> ><{$smarty.const._IG_STARTED}>
+			<option value="2" <{if $gtd_done==2}>selected="selected"<{/if}> ><{$smarty.const._IG_25PERCENT}>
+			<option value="3" <{if $gtd_done==3}>selected="selected"<{/if}> ><{$smarty.const._IG_50PERCENT}>
+			<option value="4" <{if $gtd_done==4}>selected="selected"<{/if}> ><{$smarty.const._IG_75PERCENT}>
+			<option value="5" <{if $gtd_done==5}>selected="selected"<{/if}> ><{$smarty.const._IG_THINGS_DONE}>
+			<option value="9" <{if $gtd_done==9}>selected="selected"<{/if}> ><{$smarty.const._IG_THINGS_TRASH}>
+			</select>
+			<br />
+			<{if $share_group}>
+				<{$smarty.const._IG_SHAREGROUP}><br /><{$share_group}><br />
+			<{/if}>
+			<input type="submit" name="submit" value="<{$smarty.const._SUBMIT}>" />&nbsp;
+			<input type="submit" name="cancel" value="<{$smarty.const._CANCEL}>" />
+		</div>
+	</form>
+<{else}>
+	<{if $cat_list != ''}>
+		<{$smarty.const._MD_XMOBILE_CATEGORIES_LIST}><br />
+		<{foreach name=cat_list item=category from=$cat_list}>
+			<{if $use_accesskey}>
+				[<{$category.key}>]<a href="<{$category.url}>" accesskey="<{$category.key}>"><{$category.title}></a>
+			<{else}>
+				<a href="<{$category.url}>"><{$category.title}></a>
+			<{/if}>
+			<{if $category.item_count != ''}>
+				(<{$category.item_count}>)
+			<{/if}>
+			<{if !$smarty.foreach.cat_list.last}>
+				<br />
+			<{/if}>
+		<{/foreach}>
+		<hr />
+		<{if $cat_list_page_navi != ''}>
+			<{$cat_list_page_navi}><hr />
+		<{/if}>
+	<{elseif $cat_select != '' && $com_op == ''}>
+		<{$cat_select}><hr />
+	<{elseif $cat_path != ''}>
+		<{$cat_path}><hr />
+	<{/if}>
+	<{if $item_list != ''}>
+		<{$smarty.const._MD_XMOBILE_ITEM_LIST}><br />
+		<{foreach name=item_list item=item from=$item_list}>
+			<{if $item.msg_image eq "red.gif"}>
+				<font color="red">&diams;</font>
+			<{/if}>
+			<{if $item.msg_image eq "orange.gif"}>
+				<font color="orange">&diams;</font>
+			<{/if}>
+			<{if $item.msg_image eq "yellow.gif"}>
+				<font color="yellow">&diams;</font>
+			<{/if}>
+			<{if $item.msg_image eq "green.gif"}>
+				<font color="green">&diams;</font>
+			<{/if}>
+			<{if $item.msg_image eq "blue.gif"}>
+				<font color="blue">&diams;</font>
+			<{/if}>
+			<{if $use_accesskey}>
+				[<{$item.key}>]<a href="<{$item.url}>" accesskey="<{$item.key}>"><{$item.title}></a>
+			<{else}>
+				<a href="<{$item.url}>"><{$item.title}></a>
+			<{/if}>
+			<{if $item.date != ''}>
+				<br />&nbsp;(<{$item.date}>)
+			<{/if}>
+			<{if $item.gtd_done eq 1}>
+				<br /><div style="background-color: #66ffcc; width: 5px; font-size: 10px;">&nbsp;Start!</div>
+			<{/if}>
+			<{if $item.gtd_done eq 2}>
+				<br /><div style="background-color: #66ffcc; width: 20px; font-size: 10px;">&nbsp;25%</div>
+			<{/if}>
+			<{if $item.gtd_done eq 3}>
+				<br /><div style="background-color: #66ffcc; width: 30px; font-size: 10px;">&nbsp;50%</div>
+			<{/if}>
+			<{if $item.gtd_done eq 4}>
+				<br /><div style="background-color: #66ffcc; width: 40px; font-size: 10px;">&nbsp;75%</div>
+			<{/if}>
+			<{if $item.gtd_done eq 5}>
+				<br /><div style="background-color: #66ffcc; width: 50px; font-size: 10px;">&nbsp;Done!</div>
+			<{/if}>
+			<{if !$smarty.foreach.item_list.last}>
+				<br />
+			<{/if}>
+		<{/foreach}>
+		<hr />
+		<{if $item_list_page_navi != ''}>
+			<{$item_list_page_navi}><hr />
+		<{/if}>
+	<{elseif $lang_no_item_list != ''}>
+		<{$lang_no_item_list}><hr />
+	<{/if}>
+	<{if $item_detail != '' && $com_op == ''}>
+		<{$item_detail}><hr />
+	<{/if}>
+	<{if $item_detail_page_navi != ''}>
+		<{$item_detail_page_navi}><hr />
+	<{/if}>
+	<{if $recent_item_list != ''}>
+		<{$smarty.const._MD_XMOBILE_RECENT}><br />
+		<{foreach name=recent_item_list item=recent_item from=$recent_item_list}>
+			<a href="<{$recent_item.url}>"><{$recent_item.title}></a>
+			<br />&nbsp;(<{$recent_item.date}>)
+			<{if !$smarty.foreach.recent_item_list.last}>
+				<br />
+			<{/if}>
+		<{/foreach}>
+		<hr />
+	<{/if}>
+	<{if $edit_link != ''}>
+		<{$edit_link}><hr />
+	<{/if}>
+	<{if $comment_link != ''}>
+		<{$comment_link}><hr />
+	<{/if}>
+<{/if}>
+</div>

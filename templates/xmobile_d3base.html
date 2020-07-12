@@ -1,0 +1,108 @@
+<div class="contents">
+<{if $plugin_contents != ''}>
+	<{$plugin_contents}>
+<{/if}>
+<{if $cat_list != ''}>
+	<{$smarty.const._MD_XMOBILE_CATEGORIES_LIST}><br />
+	<{foreach name=cat_list item=category from=$cat_list}>
+		<{if $use_accesskey}>
+			[<{$category.key}>]<a href="<{$category.url}>" accesskey="<{$category.key}>"><{$category.title}></a>
+		<{else}>
+			<a href="<{$category.url}>"><{$category.title}></a>
+		<{/if}>
+		<{if $category.item_count != ''}>
+			(<{$category.item_count}>)
+		<{/if}>
+		<{if !$smarty.foreach.cat_list.last}>
+			<br />
+		<{/if}>
+	<{/foreach}>
+	<hr />
+	<{if $cat_list_page_navi != ''}>
+		<{$cat_list_page_navi}><hr />
+	<{/if}>
+<{elseif $cat_select != '' && $com_op == ''}>
+	<{$cat_select}><hr />
+<{elseif $cat_path != ''}>
+	<{$cat_path}><hr />
+<{/if}>
+<{if $item_list != ''}>
+	<{$smarty.const._MD_XMOBILE_ITEM_LIST}><br />
+	<{foreach name=item_list item=item from=$item_list}>
+		<{if $use_accesskey}>
+			[<{$item.key}>]<a href="<{$item.url}>" accesskey="<{$item.key}>"><{$item.title}></a>
+			<{if $item.date != ''}>
+				<br />&nbsp;(<{$item.date}>)
+			<{/if}>
+		<{else}>
+			<a href="<{$item.url}>"><{$item.title}></a>
+			<{if $item.date != ''}>
+				<br />&nbsp;(<{$item.date}>)
+			<{/if}>
+		<{/if}>
+		<{if !$smarty.foreach.item_list.last}>
+			<br />
+		<{/if}>
+	<{/foreach}>
+	<hr />
+	<{if $item_list_page_navi != ''}>
+		<{$item_list_page_navi}><hr />
+	<{/if}>
+<{elseif $lang_no_item_list != ''}>
+	<{$lang_no_item_list}><hr />
+<{/if}>
+<{if $dataObject && $com_op == '' && !$item_edit}>
+	<{$smarty.const._MD_XMOBILE_ITEM_DETAIL}><br />
+	<{foreach item=key from=$dataHandler->getShowArticleKeyArray()}>
+		<{if $dataObject->getShow($key)}>
+			<{if $key == 'uid'}>
+				<{$dataHandler->getShowName($key)}>:<{$dataObject->getShow($key)|xoops_user:uname}><br />
+			<{elseif $key == 'cid'}>
+				<{if $dataHandler->getShowName($key) != 0}>
+					<{$dataHandler->getShowName($key)}>:<{$dataHandler->getCatTitle($dataObject->getShow($key))}><br />
+				<{/if}>
+			<{elseif $key == 's_date' || $key == 'e_date' || $key == 'created_date' || $key == 'updated_date' || $key == 'published_date'}>
+				<{$dataHandler->getShowName($key)}>:<{$dataObject->getShow($key)|xoops_formattimestamp:s}><br />
+			<{elseif $key == 'img01' || $key == 'img02'}>
+				<{$dataHandler->getShowName($key)}>:<{if $dataObject->getShow($key) != ''}><img src="<{$xoops_url}><{$moduleConfig.thumbs_path}>/<{$dataObject->getShow($key)}>" alt="<{$dataObject->getShow($key)}>" title="<{$dataObject->getShow($key)}>" /><{/if}><br />
+			<{else}>
+				<{$dataHandler->getShowName($key)}>:<{$dataObject->getShow($key)}><br />
+			<{/if}>
+		<{/if}>
+	<{/foreach}>
+	<{if $moduleConfig.gmap_key && $moduleConfig.use_gmap && $dataObject->getShow('show_map') && $dataObject->getShow('latitude') && $dataObject->getShow('longitude') && $dataObject->getShow('zoom')}>
+		<img src="http://maps.google.com/staticmap?center=<{$dataObject->getShow('latitude')}>,<{$dataObject->getShow('longitude')}>&amp;markers=<{$dataObject->getShow('latitude')}>,<{$dataObject->getShow('longitude')}>,green&amp;zoom=<{$dataObject->getShow('zoom')}>&amp;size=240x180&amp;maptype=mobile&amp;key=<{$moduleConfig.gmap_key}>" />
+	<{/if}>
+	<hr />
+	<{* d3pipes clippings *}>
+	<{if $dataHandler->getShowArticle('pipe_id') && $dataObject->getShow('pipe_id')}>
+		<{foreach name=clip item=clip from=$clippings}>
+			<{$clip}><br />
+		<{/foreach}>
+		<hr />
+	<{/if}>
+	<{if $item_detail_page_navi != ''}>
+		<{$item_detail_page_navi}><hr />
+	<{/if}>
+<{/if}>
+<{if $item_edit}>
+	<{$item_edit}><hr />
+<{/if}>
+<{if $recent_item_list != ''}>
+	<{$smarty.const._MD_XMOBILE_RECENT}><br />
+	<{foreach name=recent_item_list item=recent_item from=$recent_item_list}>
+		<a href="<{$recent_item.url}>"><{$recent_item.title}></a>
+		<br />&nbsp;(<{$recent_item.date}>)
+		<{if !$smarty.foreach.recent_item_list.last}>
+			<br />
+		<{/if}>
+	<{/foreach}>
+	<hr />
+<{/if}>
+<{if $edit_link != '' && $comment_link == ''}>
+	<{$edit_link}><hr />
+<{/if}>
+<{if $comment_link != ''}>
+	<{$comment_link}><hr />
+<{/if}>
+</div>

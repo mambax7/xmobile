@@ -1,0 +1,48 @@
+<div class ="contents">
+(<{$user_name}>)<br />
+<{* <{$smarty.const._US_REALNAME}>: <{$user_realname}><br /> *}>
+<{if $user_website != ''}>
+	<{$smarty.const._US_WEBSITE}>: <a href="<{$user_website}>" target="_blank"><{$user_website}></a><br />
+<{/if}>
+<{if $viewemail == 1}>
+	<{$smarty.const._US_EMAIL}>: <{$user_email}><br />
+<{else}>
+	<{if $is_user == 1}>
+		<{$smarty.const._US_EMAIL}>: <{$user_email}><br />
+	<{/if}>
+<{/if}>
+<{$smarty.const._US_PM}>: <a href="<{$send_pm_url}>"><{$send_to}></a><br />
+<{*
+<{$smarty.const._US_ICQ}>: <{$user_icq}><br />
+<{$smarty.const._US_AIM}>: <{$user_aim}><br />
+<{$smarty.const._US_YIM}>: <{$user_yim}><br />
+<{$smarty.const._US_MSNM}>: <{$user_msnm}><br />
+<{$smarty.const._US_LOCATION}>: <{$user_from}><br />
+<{$smarty.const._US_OCCUPATION}>: <{$user_occ}><br />
+<{$smarty.const._US_INTEREST}>: <{$user_intrest}><br />
+<{$smarty.const._US_EXTRAINFO}>: <{$user_extrainfo}><br />
+*}>
+(<{$smarty.const._US_STATISTICS}>)<br />
+<{$smarty.const._US_MEMBERSINCE}>: <{$user_regdate}><br />
+<{$smarty.const._US_RANK}>: <{$user_rank}><{$user_rank_image}><br />
+<{$smarty.const._US_POSTS}>: <{$user_posts}><br />
+<{$smarty.const._US_LASTLOGIN}>: <{$last_login}><br />
+<{if $user_sig != ''}>
+	(<{$smarty.const._US_SIGNATURE}>)<br />
+	<{$user_sig}>
+<{/if}>
+<hr />
+<{$smarty.const._MD_XMOBILE_ITEM_POSTLIST}><br />
+<{foreach name=mods item=mod from=$mods}>
+	<{$mod.name}><br />
+	<{foreach name=user_post item=user_post from=$mod.user_posts}>
+		<{$user_post.link}><br />
+		<{* <{$user_post.time}><br /> *}>
+	<{/foreach}>
+	<{if $mod.show_all}>
+		<{$mod.show_all}><br />
+	<{/if}>
+	-------------------
+	<br />
+<{/foreach}>
+</div>

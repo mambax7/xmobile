@@ -1,0 +1,33 @@
+<div class ="contents">
+<{if $login_failed != ''}>
+	<{$login_failed}>
+<{/if}>
+<{if $carrier == 1 && $use_easy_login}><{* docomo *}>
+	<form action="<{$base_url}>" method="post" utn>
+<{else}><{* other case *}>
+	<form action="<{$base_url}>" method="post">
+<{/if}>
+<div class ="form">
+	<{$smarty.const._MD_XMOBILE_USER_NAME}><br />
+	<input type="text" name="uname" size="12" value="" maxlength="25" istyle="3" mode="alphabet" /><br />
+	<{$smarty.const._MD_XMOBILE_PASSWORD}><br />
+	<{* <input type="password" name="pass" size="12" maxlength="32" /><br /> *}>
+	<input type="text" name="pass" size="12" maxlength="32" istyle="3" mode="alphabet" /><br />
+	<{* use easy login *}>
+	<{if $use_easy_login}>
+		<input type="checkbox" name="easy_login" value="1" />
+		<{$smarty.const._MD_XMOBILE_USE_EASY_LOGIN}><br />
+		<{if $show_desc}>
+			<{$easy_login_desc}><br />&nbsp;<br />
+		<{else}>
+			<a href="<{$show_desc_url}>"><{$smarty.const._MD_XMOBILE_WHATS_EASY_LOGIN}></a><br />&nbsp;<br />
+		<{/if}>
+	<{/if}>
+	<input type="hidden" name="view" value="confirm" />
+	<{$ticket_html}>
+	<input type="hidden" name="<{$session_name}>" value="<{$session_id}>" />
+	<input type="hidden" name="HTTP_REFERER" value="<{$referer_url}>" />
+	<input type="submit" name="submit" value="<{$smarty.const._MD_XMOBILE_LOG_IN}>" />
+</div>
+</form>
+</div>

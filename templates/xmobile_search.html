@@ -1,0 +1,57 @@
+<div class ="contents">
+<{if $lang_keytoshort != ''}>
+	<{$lang_keytoshort}>
+<{/if}>
+<{if $show_results || $show_all}>
+	<{$smarty.const._SR_KEYWORDS}>: 
+	<{if $queries}>
+		<{foreach name=queries item=query from=$queries}>
+			<{$query}>&nbsp;
+		<{/foreach}>
+	<{/if}>
+	<{if $ignored_queries}>
+		<br /><{$ignored_word}>
+		<{foreach name=ignored_queries item=ignored_query from=$ignored_queries}>
+			<{$ignored_query}>
+		<{/foreach}>
+	<{/if}>
+	<hr />
+<{/if}>
+<{if $show_results}>
+	<{foreach name=modules item=mod from=$mods}>
+		<{$mod.name}><br />
+		<{if $mod.no_match == 1}>
+			<{$smarty.const._SR_NOMATCH}>
+		<{else}>
+			<{foreach name=links item=link from=$mod.link}>
+				<{if $link != ''}>
+					<{$link}><br />
+				<{/if}>
+			<{/foreach}>
+			<{if $mod.show_all}>
+				<{$mod.show_all}>
+			<{/if}>
+		<{/if}>
+		<br />-------------------<br />
+	<{/foreach}>
+	<{$page_navi}>
+<{elseif $show_all || $show_allbyuser}>
+	<{if $no_match != ''}>
+		<{$no_match}>
+	<{else}>
+		<{$mod_name}><br />
+		<{$showing}><hr />
+		<{foreach name=links item=link from=$links}>
+			<a href="<{$link.url}>"><{$link.title}></a><br />
+			<{if $link.uname}>
+				<{$link.uname}><br />
+			<{/if}>
+			<{if $link.time}>
+				<{$link.time}><br />
+			<{/if}>
+			-------------------<br />
+		<{/foreach}>
+		<{$page_navi}>
+	<{/if}>
+<{/if}>
+</div>

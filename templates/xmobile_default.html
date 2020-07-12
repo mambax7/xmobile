@@ -1,0 +1,49 @@
+<div class ="contents">
+<{if $show_menu}>
+	<{foreach name=mainmenu key=key item=menu from=$mainmenu}>
+		<{if $use_accesskey}>
+			[<{$key}>]<a href="<{$menu.url}>" accesskey="<{$key}>"><{$menu.title}></a>
+		<{else}>
+			<a href="<{$menu.url}>"><{$menu.title}></a>
+		<{/if}>
+		<{if !$smarty.foreach.mainmenu.last}>
+			<br />
+		<{/if}>
+	<{/foreach}>
+<{else}>
+	<{$message}>
+<{/if}>
+<{if $show_login || $show_search}>
+	<hr />
+	<{if $show_login}>
+		<{if $is_user}>
+			<a href="<{$logout_url}>"><{$smarty.const._MD_XMOBILE_LOG_OUT}></a><br />
+			<a href="<{$userinfo_url}>"><{$smarty.const._MD_XMOBILE_ACCOUNT}></a><br />
+			<a href="<{$pmessage_url}>"><{$privmessage_state}></a><br />
+			<a href="<{$notifications_url}>"><{$smarty.const._MD_XMOBILE_NOTIFICATION}></a><br />
+		<{else}>
+			<{if $use_easy_login && $carrier == 1}><{* docomo *}>
+				<a href="<{$login_url}>" utn><{$smarty.const._MD_XMOBILE_LOG_IN}></a><br />
+			<{else}><{* other case *}>
+				<a href="<{$login_url}>"><{$smarty.const._MD_XMOBILE_LOG_IN}></a><br />
+			<{/if}>
+			<a href="<{$lostpass_url}>"><{$smarty.const._MD_XMOBILE_LOST_PASS}></a><br />
+			<{if $show_register}>
+				<a href="<{$register_url}>"><{$smarty.const._MD_XMOBILE_NEW_USER_ENTRY}></a><br />
+			<{/if}>
+		<{/if}>
+	<{/if}>
+	<{if $show_search}>
+		<form action="<{$search_url}>" method="get">
+			<p class="form">
+				<{$smarty.const._MD_XMOBILE_SEARCH_SITE}><br />
+				<input type="hidden" name="act" value="search" />
+				<input type="hidden" name="action" value="results" />
+				<input type="hidden" name="sess" value="<{$session_id}>" />
+				<input type="text" name="query" value="" size="10" maxlength="25" /><br />
+				<input type="submit" value="<{$smarty.const._SEARCH}>" />
+			</p>
+		</form>
+	<{/if}>
+<{/if}>
+</div>

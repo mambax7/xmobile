@@ -1,0 +1,19 @@
+<div class ="contents">
+<{if $show_form}>
+	<{$smarty.const._US_LOSTPASSWORD}><br />
+	<{$smarty.const._US_NOPROBLEM}><br />
+	<form action="<{$base_url}>" method="post">
+		<div class ="form">
+			<{$smarty.const._US_YOUREMAIL}><br />
+			<input type="text" name="email" size="26" maxlength="60" /><br />
+			<input type="hidden" name="view" value="confirm" />
+			<{$ticket_html}>
+			<input type="hidden" name="<{$session_name}>" value="<{$session_id}>" />
+			<input type="hidden" name="HTTP_REFERER" value="<{$referer_url}>" />
+			<input type="submit" value="<{$smarty.const._US_SENDPASSWORD}>" />
+		</div>
+	</form>
+<{else}>
+	<{$confirm_message}>
+<{/if}>
+</div>

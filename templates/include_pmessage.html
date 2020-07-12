@@ -1,0 +1,35 @@
+<{php}>
+global  $xoopsConfig ;
+include_once XOOPS_ROOT_PATH.'/modules/inukshukGTD/language/'.$xoopsConfig['language'].'/main.php';
+<{/php}>
+
+	<form action='<{$xoops_url}>/modules/inukshukGTD/pm2gtd.php' method='post' name='pmsg<{$msg_id}>'>
+	<h2><{$smarty.const._PM_TITLE}></h2>
+	<{$smarty.const._PM_TITLE_DESC}>
+	<h3><{$smarty.const._PM_ACTIONABLE_NO}></h3>
+	<li><{$smarty.const._PM_AN_DESC_ELIMINATE}></li>
+	<li><input type="radio" name="gtd_attr" value="1"><{$smarty.const._PM_AN_DESC_SOMEDAY}></li>
+	<li><input type="radio" name="gtd_attr" value="2"><{$smarty.const._PM_AN_DESC_REFERENCE}></li>
+	<h3><{$smarty.const._PM_ACTIONABLE_YES}></h3>
+	<li><input type="radio" name="gtd_attr" value="3">
+		<{$smarty.const._PM_AY_DESC_PROJECT}>
+		<select name='parent_mid'>
+		<option value=""><{$smarty.const._PM_NEW_PROJECT}>
+		<{foreach item=p from=$ProjectsList}>
+			<option value="<{$p.msg_id}>"><{$p.subject}>
+		<{/foreach}>
+		</select>
+	</li>
+	<li><input type="radio" name="gtd_attr" value="4"><{$smarty.const._PM_AY_DESC_DOIT}></li>
+	<li><input type="radio" name="gtd_attr" value="5">
+		<{$smarty.const._PM_AY_DESC_DELEGETE}>
+	</li>
+	<li><input type="radio" name="gtd_attr" value="6">
+		<{$smarty.const._PM_AY_DESC_CALENDER}>&nbsp;
+		<{$StartYear}><{$smarty.const._MD_XMOBILE_YEAR}><{$StartMonth}><{$smarty.const._MD_XMOBILE_MONTH}><{$StartDay}><{$smarty.const._MD_XMOBILE_DAY}>
+		<{$StartHour}>&nbsp;<{$StartMin}>
+	<li><input type="radio" name="gtd_attr" value="7"><{$smarty.const._PM_AY_DESC_NEXTACTION}></li>
+	<input type='hidden' name='msg_id' value='<{$msg_id}>' />
+	<input type="submit" value="<{$smarty.const._PM_MOVE_TO_GTD}>">
+	</form>
+

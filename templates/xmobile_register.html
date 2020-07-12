@@ -1,0 +1,62 @@
+<div class ="contents">
+<{$message}>
+<{if $show_agreement_form}>
+	<form action="<{$base_url}>" method="post">
+		<div class ="form">
+			<{$smarty.const._MD_XMOBILE_AGREEMENT_TITLE}><br />
+			<{$reg_disclaimer}><br />
+			<input type="submit" name="submit" value="<{$smarty.const._MD_XMOBILE_IAGREE}>">&nbsp;
+			<input type="submit" name="cancel" value="<{$smarty.const._MD_XMOBILE_NOT_IAGREE}>">
+			<input type="hidden" name="op" value="register">
+		</div>
+	</form>
+<{/if}>
+<{if $show_confirm_form}>
+	<{$smarty.const._MD_XMOBILE_CONFIRM}><hr />
+	<{$smarty.const._US_NICKNAME}>: <{$uname}><br />
+	<{$smarty.const._US_EMAIL}>: <{$email}><br />
+	<form action="<{$base_url}>" method="post">
+		<div class ="form">
+			<input type="hidden" name="uname" value="<{$uname}>" />
+			<input type="hidden" name="email" value="<{$email}>" />
+			<input type="hidden" name="user_viewemail" value="'.$user_viewemail}>" />
+			<input type="hidden" name="pass" value="<{$pass}>" />
+			<{* <input type="hidden" name="vpass" value="<{$vpass}>" /> *}>
+			<input type="hidden" name="user_mailok" value="<{$user_mailok}>" />
+			<input type="hidden" name="agree_disc" value="<{$agree_disc}>" />
+			<input type="hidden" name="url" value="<{$url}>" />
+			<input type="hidden" name="timezone_offset" value="<{$timezone_offset}>" />
+			<{$ticket_html}>
+			<input type="hidden" name="<{$session_name}>" value="<{$session_id}>" />
+			<input type="hidden" name="HTTP_REFERER" value="<{$referer_url}>" />
+			<input type="submit" name="submit" value="<{$smarty.const._MD_XMOBILE_REGISTER}>" />
+		</div>
+	</form>
+<{/if}>
+<{if $show_register_form}>
+	<form action="<{$base_url}>" method="post">
+		<div class ="form">
+		<{if $uname_test_level == 2}>
+			<{$smarty.const._US_NICKNAME}><br /><input type="text" name="uname" value="<{$uname}>" size="12" maxlength="25" /><br />
+		<{else}>
+			<{$smarty.const._US_NICKNAME}><br /><input type="text" name="uname" value="<{$uname}>" size="12" maxlength="25" istyle="3" mode="alphabet" /><br />
+		<{/if}>
+			<{$uname_limit}><br/>
+			<{$smarty.const._US_EMAIL}><br /><input type="text" name="email" value="<{$email}>" size="25" maxlength="60" /><br />
+			<{$smarty.const._US_ALLOWVIEWEMAIL}><br /><input type="checkbox" name="user_viewemail" value="<{$user_viewemail}>" istyle="3" mode="alphabet" /><br />
+			<{$smarty.const._US_PASSWORD}><br /><input type="text" name="pass" value="<{$pass}>" size="10" maxlength="32" istyle="3" mode="alphabet" /><br />
+			<{* <{$smarty.const._US_VERIFYPASS}><br /><input type="text" name="vpass" value="<{$vpass}>" size="10" maxlength="32" istyle="3" mode="alphabet" /><br /> *}>
+			<{$pass_limit}><br/>
+			<{$smarty.const._US_MAILOK}><br /><input type="radio" name="user_mailok" value="1" /><{$smarty.const._YES}>
+			<input type="radio" name="user_mailok" value="0" checked="checked" /><{$smarty.const._NO}><br />
+			<input type="hidden" name="timezone_offset" value="<{$timezone_offset}>" />
+			<input type="hidden" name="agree_disc" value="1" />
+			<input type="hidden" name="op" value="newuser" />
+			<{$ticket_html}>
+			<input type="hidden" name="<{$session_name}>" value="<{$session_id}>" />
+			<input type="hidden" name="HTTP_REFERER" value="<{$referer_url}>" />
+			<input type="submit" name="submit" value="<{$smarty.const._MD_XMOBILE_REGISTER}>" />
+		</div>
+	</form>
+<{/if}>
+</div>

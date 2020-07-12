@@ -1,0 +1,12 @@
+<div class="header">
+	<a id="PAGE_TOP"></a>
+	<{if $logo != ''}>
+		<div class="logo"><img src="<{$logo}>" alt="<{$sitename_alt}>" /></div>
+	<{/if}>
+	<div class="sitename"><{$sitename}><hr /></div>
+</div>
+<{if $page_title_link != ''}>
+	<div class="page_title"><{$page_title_link}><hr /></div>
+<{elseif $page_title != ''}>
+	<div class="page_title"><{$page_title}><hr /></div>
+<{/if}>
